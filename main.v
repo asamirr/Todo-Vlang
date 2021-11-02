@@ -19,13 +19,13 @@ fn main() {
 		create table Todo
 	}
 
-	first := Todo{
-		title: 'Do the dishes'
-		desc: 'Get in the kitchen now!!!!!!'
-	}
-	sql app.db {
-		insert first into Todo
-	}
+	// first := Todo{
+	// 	title: 'Do the dishes'
+	// 	desc: 'Get in the kitchen now!!!!!!'
+	// }
+	// sql app.db {
+	// 	insert first into Todo
+	// }
 	vweb.run(app, 8000)
 }
 
@@ -36,7 +36,7 @@ pub fn (mut app App) index() vweb.Result {
 	return app.json(todos)
 }
 
-['/'; post]
+['/add/:title/:desc'; post]
 pub fn (mut app App) post(title string, desc string) vweb.Result {
 	if title == '' || desc == '' {
 		return app.text('Please enter your todo item')
@@ -46,6 +46,7 @@ pub fn (mut app App) post(title string, desc string) vweb.Result {
 		title: title
 		desc: desc
 	}
+	println(todo)
 
 	sql app.db {
 		insert todo into Todo
