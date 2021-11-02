@@ -23,14 +23,8 @@ fn main() {
 		title: 'Do the dishes'
 		desc: 'Get in the kitchen now!!!!!!'
 	}
-
-	sec := Todo{
-		title: 'Do the laundry'
-		desc: 'Get in the laundry room now!!!!!!'
-	}
 	sql app.db {
 		insert first into Todo
-		insert sec into Todo
 	}
 	vweb.run(app, 8000)
 }
@@ -38,5 +32,23 @@ fn main() {
 ['/'; get]
 pub fn (mut app App) index() vweb.Result {
 	todos := app.find_all_todos()
-	return app.json(json.encode(todos))
+	// println(todos)
+	return app.json(todos)
+}
+
+['/'; post]
+pub fn (mut app App) post(title string, desc string) vweb.Result {
+	if title == '' || desc == '' {
+		return app.text('Please enter your todo item')
+	}
+
+	todo := Todo{
+		title: title
+		desc: desc
+	}
+
+	sql app.db {
+		insert todo into Todo
+	}
+	return app.redirect('/')
 }
