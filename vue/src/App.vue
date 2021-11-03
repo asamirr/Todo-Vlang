@@ -100,7 +100,7 @@ export default {
     methods: {
         addNewTodo() {
             if (this.newTodo.length === 0) return;
-            axios.post('http://localhost:8080/tasks', {
+            axios.post(process.env.VUE_APP_BASE_URL, {
                 title: this.newTodo
             })
             .then(res => {
@@ -111,7 +111,7 @@ export default {
         }
     },
     created () {
-        axios.get('http://localhost:8080/tasks')
+        axios.get(process.env.VUE_APP_BASE_URL)
             .then(res => {
                 this.todos = res.data.tasks;
                 console.log(this.todos);
