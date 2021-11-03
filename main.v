@@ -31,7 +31,7 @@ pub fn (mut app App) index() vweb.Result {
 	})
 }
 
-['/'; post]
+['/tasks'; post]
 pub fn (mut app App) post() vweb.Result {
 	data := app.req.data
 	todo := json.decode(Todo, data) or {
@@ -46,7 +46,7 @@ pub fn (mut app App) post() vweb.Result {
 }
 
 
-['/:id'; put]
+['/tasks/:id'; put]
 pub fn (mut app App) put(id int) vweb.Result {
 	data := app.req.data
 	todo := json.decode(Todo, data) or {

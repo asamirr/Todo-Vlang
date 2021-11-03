@@ -98,17 +98,17 @@ export default {
         };
     },
     methods: {
-        // addNewTodo() {
-        //     if (this.newTodo.length === 0) return;
-        //     axios.post('', {
-        //         title: this.newTodo
-        //     })
-        //     .then(res => {
-        //         this.newTodo = '';
-        //         this.todos = res.data.data.todos;
-        //         this.todos = this.todos.map(data => ({...data, edit: false}));
-        //     });
-        // }
+        addNewTodo() {
+            if (this.newTodo.length === 0) return;
+            axios.post('http://localhost:8080/tasks', {
+                title: this.newTodo
+            })
+            .then(res => {
+                this.newTodo = '';
+                this.todos = res.data.tasks;
+                this.todos = this.todos.map(data => ({...data, edit: false}));
+            });
+        }
     },
     created () {
         axios.get('http://localhost:8080/tasks')
