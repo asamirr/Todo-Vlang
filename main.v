@@ -29,7 +29,7 @@ pub fn (mut app App) index() vweb.Result {
 	return app.json(todos)
 }
 
-['/add'; post]
+['/'; post]
 pub fn (mut app App) post() vweb.Result {
 	data := app.req.data
 	todo := json.decode(Todo, data) or {
@@ -40,5 +40,16 @@ pub fn (mut app App) post() vweb.Result {
 		insert todo into Todo
 	}
 
+	return app.redirect('/')
+}
+
+
+['/:id'; put]
+pub fn (mut app App) put(id int) vweb.Result {
+	data := app.req.data
+	todo := json.decode(Todo, data) or {
+		return app.text('Error parsing json')
+	}
+	app.update_todo(id, todo.title, todo.desc)
 	return app.redirect('/')
 }

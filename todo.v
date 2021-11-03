@@ -11,3 +11,10 @@ pub fn (app &App) find_all_todos() []Todo {
 		select from Todo
 	}
 }
+
+pub fn (app &App) update_todo(id int, title string, desc string) {
+	sql app.db {
+		update Todo
+		set title = title, desc = desc where id == id
+	}
+} 
