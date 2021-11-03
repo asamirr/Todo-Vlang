@@ -19,14 +19,16 @@ fn main() {
 		create table Todo
 	}
 
-	vweb.run(app, 8000)
+	vweb.run(app, 5000)
 }
 
-['/'; get]
+['/tasks'; get]
 pub fn (mut app App) index() vweb.Result {
 	todos := app.find_all_todos()
-	// println(todos)
-	return app.json(todos)
+	println(todos)
+	return app.json({
+		"tasks": todos
+	})
 }
 
 ['/'; post]
